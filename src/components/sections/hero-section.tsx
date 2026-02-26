@@ -22,7 +22,7 @@ const OmnitrixIcon = () => (
 const HeroSection = ({ onTransformClick }: HeroSectionProps) => {
   return (
     <div className="h-full flex flex-col justify-start text-center px-4 pt-16 md:pt-[12vh] relative z-10 animate-fadeIn">
-      <div className="mb-6 relative group cursor-default md:cursor-pointer flex flex-col items-center pointer-events-none md:pointer-events-auto" onClick={onTransformClick}>
+      <div className="mb-6 relative group cursor-default md:cursor-pointer flex flex-col items-center pointer-events-none md:pointer-events-auto" onClick={() => { if (typeof window !== 'undefined' && window.innerWidth >= 768) onTransformClick(); }}>
         <div className="w-56 h-56 md:w-72 md:h-72 rounded-full border-4 border-gray-800 bg-black flex items-center justify-center shadow-[0_0_50px_rgba(57,255,20,0.3)] group-hover:shadow-[0_0_80px_rgba(57,255,20,0.6)] transition-all duration-500 overflow-hidden relative">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#003300_0%,#000000_70%)] opacity-50"></div>
           <div className="absolute inset-0 z-10 pointer-events-none rounded-full" style={{ boxShadow: 'inset 0 0 20px rgba(0,0,0,0.9)' }}></div>
