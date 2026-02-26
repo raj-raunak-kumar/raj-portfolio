@@ -196,7 +196,17 @@ export default function HomePageClient() {
         </div>
       )}
 
-      <main ref={mainRef} className={`relative block ${isHero ? 'h-full flex-col overflow-hidden pt-32 pb-10' : 'min-h-screen pt-32 pb-10'}`}>
+      {/* Mobile-Only Research/Blog Link */}
+      <div className="fixed top-6 right-6 z-40 md:hidden pointer-events-none">
+        <Link
+          href="/blog"
+          className="pointer-events-auto px-4 py-1.5 bg-black/60 backdrop-blur border border-[#39ff14]/50 text-[#39ff14] rounded-full hover:bg-[#39ff14]/20 transition-all font-bold tracking-widest uppercase text-[10px] shadow-[0_0_10px_rgba(57,255,20,0.3)]"
+        >
+          RESEARCH
+        </Link>
+      </div>
+
+      <main ref={mainRef} className={`relative block ${isHero ? 'h-full flex-col overflow-hidden pt-4 md:pt-32 pb-10' : 'min-h-screen pt-8 md:pt-32 pb-10'}`}>
         {isMounted && renderContent()}
       </main>
 

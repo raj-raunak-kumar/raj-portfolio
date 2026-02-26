@@ -67,7 +67,7 @@ export default function BlogIndexPage() {
     });
 
     return (
-        <div className="min-h-screen bg-black pt-32 pb-20 relative px-4">
+        <div className="min-h-screen bg-black pt-8 md:pt-32 pb-20 relative px-4">
             {/* Background Elements */}
             <div className="fixed inset-0 bg-[#39ff14]/5 cyber-grid pointer-events-none z-0" />
             <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-[#39ff14]/5 to-transparent pointer-events-none z-0" />

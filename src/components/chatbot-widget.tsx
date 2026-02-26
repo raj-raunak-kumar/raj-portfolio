@@ -87,15 +87,15 @@ export function ChatbotWidget() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button
-          className="fixed bottom-6 right-6 z-50 flex items-center justify-center gap-3 rounded-full bg-black/80 backdrop-blur border border-primary/50 text-white px-6 py-3 shadow-[0_0_20px_rgba(57,255,20,0.4)] hover:shadow-[0_0_40px_rgba(57,255,20,0.8)] hover:border-primary transition-all duration-300 group overflow-hidden"
+          className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-50 flex items-center justify-center rounded-full bg-black/80 backdrop-blur border border-primary/50 text-white p-3 md:px-6 md:py-3 shadow-[0_0_20px_rgba(57,255,20,0.4)] hover:shadow-[0_0_40px_rgba(57,255,20,0.8)] hover:border-primary transition-all duration-300 group overflow-hidden"
         >
           <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <div className="relative z-10 flex items-center gap-3">
+          <div className="relative z-10 flex items-center gap-0 md:gap-3">
             <div className="relative">
               <div className="absolute inset-0 bg-primary blur-md opacity-50 animate-pulse"></div>
-              <SquareTerminal className="h-5 w-5 text-primary relative z-10" />
+              <SquareTerminal className="h-6 w-6 md:h-5 md:w-5 text-primary relative z-10" />
             </div>
-            <span className="font-mono text-sm tracking-widest font-bold text-primary">KRYTHOS AI</span>
+            <span className="hidden md:inline font-mono text-sm tracking-widest font-bold text-primary">KRYTHOS AI</span>
           </div>
         </button>
       </DialogTrigger>

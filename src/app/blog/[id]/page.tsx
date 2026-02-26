@@ -60,7 +60,7 @@ export default function BlogPostPage() {
     }
 
     return (
-        <div className="min-h-screen bg-black pt-32 pb-20 relative px-4">
+        <div className="min-h-screen bg-black pt-8 md:pt-32 pb-20 relative px-4">
             {/* Background Elements */}
             <div className="fixed inset-0 bg-[#39ff14]/5 cyber-grid pointer-events-none z-0" />
 
