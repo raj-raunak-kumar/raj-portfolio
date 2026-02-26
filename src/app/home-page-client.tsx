@@ -101,7 +101,7 @@ export default function HomePageClient() {
 
       {showHeader ? (
         <div
-          className="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-50 pointer-events-none"
+          className="absolute top-0 left-0 w-full p-6 hidden md:flex justify-between items-center z-50 pointer-events-none"
         >
           <div className="flex items-center gap-3">
             <div
@@ -136,7 +136,7 @@ export default function HomePageClient() {
           </div>
         </div>
       ) : (
-        <div className="fixed top-0 left-0 w-full p-6 flex justify-between items-center z-50 pointer-events-none">
+        <div className="fixed top-0 left-0 w-full p-6 hidden md:flex justify-between items-center z-50 pointer-events-none">
           <div className="flex items-center gap-3 pointer-events-auto opacity-0">
             <div className="w-10 h-10 rounded-full border-2 border-white/20 flex items-center justify-center bg-black/50 backdrop-blur">
               <CurrentIcon className="text-lg" style={{ color: mode.color }} />
@@ -210,6 +210,41 @@ export default function HomePageClient() {
       <div className="fixed bottom-8 right-8 w-32 h-1 bg-gray-800 rounded overflow-hidden hidden md:block z-0 pointer-events-none">
         <div className="h-full bg-white/20 animate-pulse w-2/3"></div>
       </div>
+
+      {/* Mobile Bottom Navigation Bar (Material Design Inspired) */}
+      <div className="fixed bottom-0 left-0 right-0 h-16 bg-black/95 backdrop-blur-md border-t border-white/10 flex items-center justify-around px-2 z-50 md:hidden pb-[env(safe-area-inset-bottom)]">
+        {Object.values(ALIENS).map((alien) => {
+          const NavIcon = alien.icon;
+          const isActive = mode.id === alien.id;
+          return (
+            <button
+              key={alien.id}
+              onClick={() => handleModeChange(alien)}
+              className="flex flex-col items-center justify-center w-16 h-full transition-all duration-300 relative group"
+            >
+              {/* Active Indicator Glow */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-t from-${alien.color}/20 to-transparent transition-opacity duration-300 rounded-t-lg ${isActive ? 'opacity-100' : 'opacity-0'}`}
+                style={isActive ? { backgroundImage: `linear-gradient(to top, ${alien.color}33, transparent)` } : {}}
+              />
+
+              <div
+                className={`relative z-10 p-1.5 rounded-full transition-all duration-300 ${isActive ? 'scale-110 -translate-y-1' : 'group-hover:bg-white/5'}`}
+                style={isActive ? { backgroundColor: `${alien.color}22`, boxShadow: `0 0 10px ${alien.color}40`, color: alien.color } : { color: '#9CA3AF' }}
+              >
+                <NavIcon className="text-xl" />
+              </div>
+              <span
+                className={`text-[9px] font-bold tracking-wider mt-1 transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-70 group-hover:opacity-100'}`}
+                style={isActive ? { color: alien.color } : { color: '#9CA3AF' }}
+              >
+                {alien.id === 'HUMAN' ? 'HOME' : alien.label.split(' ')[0]}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
       <ChatbotWidget />
     </div>
   );

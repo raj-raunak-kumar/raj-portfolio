@@ -28,7 +28,7 @@ const HeroSection = ({ onTransformClick }: HeroSectionProps) => {
           <div className="absolute inset-0 z-10 pointer-events-none rounded-full" style={{ boxShadow: 'inset 0 0 20px rgba(0,0,0,0.9)' }}></div>
           <Omnitrix3D color="#39ff14" />
         </div>
-        <div className="mt-6 text-[#39ff14] font-mono text-sm tracking-[0.5em] animate-pulse">CLICK TO NAVIGATE</div>
+        <div className="mt-6 text-[#39ff14] font-mono text-sm tracking-[0.5em] animate-pulse hidden md:block">CLICK TO NAVIGATE</div>
       </div>
 
       <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter mb-4 font-headline">
