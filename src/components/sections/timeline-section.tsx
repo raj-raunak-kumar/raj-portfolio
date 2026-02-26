@@ -2,6 +2,8 @@ import React from 'react';
 import SectionWrapper from '@/components/section-wrapper';
 import { ALIENS } from '@/lib/constants';
 
+import { motion } from 'framer-motion';
+
 const TimelineSection = () => {
     const modeColor = '#00ccff';
 
@@ -16,11 +18,18 @@ const TimelineSection = () => {
 
     return (
         <SectionWrapper title="Timeline" subtitle="Velocity & Timeline" color={ALIENS.TIMELINE.color}>
-            <div className="relative py-10">
+            <div className="relative py-10 overflow-hidden">
                 <div className="absolute left-1/2 -translate-x-1/2 h-full w-px bg-gradient-to-b from-[#00ccff] to-transparent"></div>
 
                 {timelineItems.map((item, index) => (
-                    <div key={index} className={`flex items-center w-full mb-12 flex-row scroll-animate ${item.side === 'right' ? 'flex-row-reverse' : ''}`} style={{ animationDelay: `${index * 150}ms` }}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.6, delay: index * 0.1, type: "spring", stiffness: 100 }}
+                        key={index}
+                        className={`flex items-center w-full mb-12 flex-row ${item.side === 'right' ? 'flex-row-reverse' : ''}`}
+                    >
                         <div className="w-5/12"></div>
                         <div className="w-2/12 flex justify-center relative">
                             <div className="w-4 h-4 rounded-full" style={{ backgroundColor: modeColor, boxShadow: `0 0 15px ${modeColor}` }}></div>
@@ -32,7 +41,7 @@ const TimelineSection = () => {
                                 <p className="text-gray-400 text-[9px] md:text-xs mt-1 md:mt-2 leading-relaxed">{item.desc}</p>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
         </SectionWrapper>

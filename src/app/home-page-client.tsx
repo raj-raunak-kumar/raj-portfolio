@@ -41,29 +41,7 @@ export default function HomePageClient() {
     setIsMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (!isMounted) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('scroll-animate-visible');
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-      }
-    );
-
-    const elements = mainRef.current?.querySelectorAll('.scroll-animate');
-    elements?.forEach((el) => observer.observe(el));
-
-    return () => {
-      elements?.forEach((el) => observer.unobserve(el));
-    };
-  }, [mode, isMounted]);
 
   const handleModeChange = (newMode: Alien) => {
     if (newMode.id === mode.id && newMode.id !== 'HUMAN') {

@@ -4,6 +4,7 @@ import SectionWrapper from '@/components/section-wrapper';
 import { ALIENS } from '@/lib/constants';
 import TechCard from '@/components/tech-card';
 import ProjectModal from '@/components/project-modal';
+import { motion } from 'framer-motion';
 import { Database, Terminal, Globe, Github, Cpu } from 'lucide-react';
 
 type Project = {
@@ -15,11 +16,15 @@ type Project = {
     ghLink?: string
 };
 
-const ProjectCard = ({ project, onClick }: { project: Project, onClick: () => void }) => {
+const ProjectCard = ({ project, onClick, index = 0 }: { project: Project, onClick: () => void, index?: number }) => {
     const modeColor = '#39ff14';
     const Icon = project.icon;
     return (
-        <div
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: index * 0.1, type: "spring", stiffness: 100 }}
             onClick={onClick}
             className="group relative overflow-hidden flex flex-col justify-center rounded-2xl bg-black border border-white/10 hover:border-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(57,255,20,0.3)] transform hover:-translate-y-1 cursor-pointer aspect-square"
         >
@@ -37,7 +42,7 @@ const ProjectCard = ({ project, onClick }: { project: Project, onClick: () => vo
                     {project.tags.map(tag => <span key={tag}>{tag}</span>)}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
 
@@ -81,16 +86,19 @@ const TechSection = () => {
                             title="Languages"
                             iconName="Code"
                             items={['C', 'C++', 'Go', 'Rust', 'Python', 'Java', 'Assembly', 'Shell']}
+                            delay={0.1}
                         />
                         <TechCard
                             title="Full Stack"
                             iconName="Globe"
                             items={['React', 'Node.js', 'MongoDB', 'MySQL', 'Web3', 'Tailwind']}
+                            delay={0.2}
                         />
                         <TechCard
                             title="Core Systems"
                             iconName="Server"
                             items={['OS Design', 'Compilers', 'Distributed Systems', 'Linux Admin', 'Optimization']}
+                            delay={0.3}
                         />
                     </div>
 
@@ -99,7 +107,7 @@ const TechSection = () => {
                             <Cpu style={{ color: modeColor }} /> System Deployments
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {projects.map((p, i) => <ProjectCard key={i} project={p} onClick={() => setSelectedProject(p)} />)}
+                            {projects.map((p, i) => <ProjectCard key={i} project={p} onClick={() => setSelectedProject(p)} index={i} />)}
                         </div>
                     </div>
                 </div>
