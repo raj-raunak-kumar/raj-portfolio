@@ -37,7 +37,7 @@ const AcademicsSection = () => {
                             <Trophy className="shrink-0 mt-1" style={{ color: modeColor }} />
                             <div>
                                 <strong className="text-white block">UGC-NET JRF (Dec 2024)</strong>
-                                <span className="text-gray-400 text-sm">99.79 Percentile. Qualified for Assistant Professor.</span>
+                                <span className="text-gray-400 text-sm">99.97 Percentile. QUALIFIED FOR JRF & ASSISTANT PROFESSOR.</span>
                             </div>
                         </li>
                         <li className="flex items-start gap-4 p-4 bg-black/50 border border-white/10 rounded-sm hover:bg-white/5 transition-all duration-300 transform hover:-translate-y-1 hover:border-amber-500/50 scroll-animate" style={{ animationDelay: '0.5s' }}>
