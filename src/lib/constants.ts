@@ -18,7 +18,7 @@ export interface Alien {
 }
 
 export const ALIENS: { [key: string]: Alien } = {
-    HUMAN: { id: 'HUMAN', label: 'RAJNITRIX', color: '#ffffff', icon: HeartPulse },
+    HUMAN: { id: 'HUMAN', label: 'HOME', color: '#ffffff', icon: HeartPulse },
     ACADEMICS: { id: 'ACADEMICS', label: 'ACADEMICS', color: '#ffaa00', icon: Brain },
     TECH_SKILLS: { id: 'TECH_SKILLS', label: 'TECH SKILLS', color: '#39ff14', icon: Cpu },
     TIMELINE: { id: 'TIMELINE', label: 'TIMELINE', color: '#00ccff', icon: Zap },

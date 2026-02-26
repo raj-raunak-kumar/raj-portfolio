@@ -3,21 +3,22 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Rajdhani', sans-serif;
   background-color: #050505;
   color: #e0e0e0;
   overflow-x: hidden;
 }
 
-::-webkit-scrollbar { 
-  width: 8px; 
+::-webkit-scrollbar {
+  width: 8px;
 }
-::-webkit-scrollbar-track { 
-  background: #000; 
+
+::-webkit-scrollbar-track {
+  background: #000;
 }
-::-webkit-scrollbar-thumb { 
-  background: #39ff14; 
-  border-radius: 4px; 
+
+::-webkit-scrollbar-thumb {
+  background: #39ff14;
+  border-radius: 4px;
 }
 
 
@@ -28,92 +29,123 @@ body {
 
     --card: 5 0% 2%;
     --card-foreground: 0 0% 88%;
- 
+
     --popover: 5 0% 2%;
     --popover-foreground: 0 0% 88%;
- 
+
     --primary: 105 84% 48%;
     --primary-foreground: 0 0% 2%;
- 
+
     --secondary: 105 100% 10%;
     --secondary-foreground: 105 84% 48%;
- 
+
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;
- 
+
     --accent: 105 100% 15%;
     --accent-foreground: 105 84% 48%;
- 
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
     --ring: 105 84% 48%;
- 
+
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 5 0% 2%;
     --foreground: 0 0% 88%;
 
     --card: 5 0% 2%;
     --card-foreground: 0 0% 88%;
- 
+
     --popover: 5 0% 2%;
     --popover-foreground: 0 0% 88%;
- 
+
     --primary: 105 84% 48%;
     --primary-foreground: 0 0% 2%;
- 
+
     --secondary: 105 100% 10%;
     --secondary-foreground: 105 84% 48%;
- 
+
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;
- 
+
     --accent: 105 100% 15%;
     --accent-foreground: 105 84% 48%;
- 
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
- 
+
     --border: 0 0% 20%;
     --input: 0 0% 20%;
     --ring: 105 84% 48%;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
-@keyframes fadeIn { 
-  from { opacity: 0; transform: translateY(20px); } 
-  to { opacity: 1; transform: translateY(0); } 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.animate-fadeIn { 
-  animation: fadeIn 0.5s ease-out forwards; 
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
 @keyframes vscan {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 100%; }
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 0 100%;
+  }
 }
 
 @keyframes flicker {
-  0% { opacity: 0.1; }
-  20% { opacity: 0.3; }
-  40% { opacity: 0.15; }
-  60% { opacity: 0.4; }
-  80% { opacity: 0.2; }
-  100% { opacity: 0.35; }
+  0% {
+    opacity: 0.1;
+  }
+
+  20% {
+    opacity: 0.3;
+  }
+
+  40% {
+    opacity: 0.15;
+  }
+
+  60% {
+    opacity: 0.4;
+  }
+
+  80% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 0.35;
+  }
 }
 
 /* Scroll Animations */

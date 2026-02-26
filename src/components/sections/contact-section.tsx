@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import SectionWrapper from '@/components/section-wrapper';
+import { ALIENS } from '@/lib/constants';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -10,13 +11,13 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
 import { submitContactForm } from '@/app/actions';
-import { SatelliteDish, Paperclip, Loader, Send,Linkedin, Github } from 'lucide-react';
+import { SatelliteDish, Paperclip, Loader, Send, Linkedin, Github } from 'lucide-react';
 
 
 const formSchema = z.object({
-  email: z.string().email({ message: "Invalid email address." }),
-  subject: z.string().min(2, { message: "Subject must be at least 2 characters." }),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+    email: z.string().email({ message: "Invalid email address." }),
+    subject: z.string().min(2, { message: "Subject must be at least 2 characters." }),
+    message: z.string().min(10, { message: "Message must be at least 10 characters." }),
 });
 
 const ContactSection = () => {
@@ -55,7 +56,7 @@ const ContactSection = () => {
     }
 
     return (
-        <SectionWrapper title="Contact" subtitle="Direct Line Communication">
+        <SectionWrapper title="Contact" subtitle="Direct Line Communication" color={ALIENS.CONTACT.color}>
             <div className="grid md:grid-cols-2 gap-12 items-center py-8">
                 <div className="text-center md:text-left">
                     <div className="w-32 h-32 mx-auto md:mx-0 rounded-full flex items-center justify-center mb-8 border animate-pulse" style={{ backgroundColor: `${modeColor}1A`, borderColor: `${modeColor}4D` }}>
@@ -73,7 +74,7 @@ const ContactSection = () => {
                 <div className="p-8 bg-black/50 border border-white/10 rounded-xl backdrop-blur-sm">
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                             <FormField
+                            <FormField
                                 control={form.control}
                                 name="email"
                                 render={({ field }) => (
@@ -85,7 +86,7 @@ const ContactSection = () => {
                                     </FormItem>
                                 )}
                             />
-                             <FormField
+                            <FormField
                                 control={form.control}
                                 name="subject"
                                 render={({ field }) => (
@@ -109,9 +110,9 @@ const ContactSection = () => {
                                     </FormItem>
                                 )}
                             />
-                            <Button 
-                                type="submit" 
-                                className="w-full text-black font-bold rounded transition-all transform hover:scale-105" 
+                            <Button
+                                type="submit"
+                                className="w-full text-black font-bold rounded transition-all transform hover:scale-105"
                                 style={{ backgroundColor: modeColor, boxShadow: `0 0 15px ${modeColor}80` }}
                                 disabled={isLoading}
                             >
@@ -122,7 +123,7 @@ const ContactSection = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <Send className="mr-2" /> 
+                                        <Send className="mr-2" />
                                         SEND TRANSMISSION
                                     </>
                                 )}

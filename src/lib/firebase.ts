@@ -1,35 +1,36 @@
 
-'use server';
 
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getAnalytics, isSupported } from "firebase/analytics";
 
-// IMPORTANT: Replace this with your actual Firebase configuration
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyB5gZQadMZmTgW6TsSMDxwyfTf4SjQE1Co",
+  authDomain: "portfolio-64e4a.firebaseapp.com",
+  projectId: "portfolio-64e4a",
+  storageBucket: "portfolio-64e4a.firebasestorage.app",
+  messagingSenderId: "612753397181",
+  appId: "1:612753397181:web:8e8a34744f0a6f981a2ed4",
+  measurementId: "G-PYQM5BK0NR"
 };
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-// Server action to save contact form data
-export async function saveContactMessage(formData: { email: string; subject: string; message: string; }) {
-  try {
-    await addDoc(collection(db, "contacts"), {
-      ...formData,
-      timestamp: new Date(),
-    });
-    return { success: true };
-  } catch (error) {
-    console.error("Error adding document: ", error);
-    return { success: false, error: "Failed to send message." };
-  }
+// Initialize Analytics conditionally (only runs on client)
+let analytics;
+if (typeof window !== "undefined") {
+  isSupported().then((supported) => {
+    if (supported) {
+      analytics = getAnalytics(app);
+    }
+  });
 }
 
-    
+export { app, db, auth, analytics };
+
+

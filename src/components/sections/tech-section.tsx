@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import SectionWrapper from '@/components/section-wrapper';
+import { ALIENS } from '@/lib/constants';
 import TechCard from '@/components/tech-card';
 import ProjectModal from '@/components/project-modal';
 import { Database, Terminal, Globe, Github, Cpu } from 'lucide-react';
@@ -18,9 +19,9 @@ const ProjectCard = ({ project, onClick }: { project: Project, onClick: () => vo
     const modeColor = '#39ff14';
     const Icon = project.icon;
     return (
-        <div 
+        <div
             onClick={onClick}
-            className="group relative overflow-hidden rounded-xl bg-black border border-white/10 hover:border-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(57,255,20,0.3)] transform hover:-translate-y-1 cursor-pointer"
+            className="group relative overflow-hidden flex flex-col justify-center rounded-2xl bg-black border border-white/10 hover:border-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(57,255,20,0.3)] transform hover:-translate-y-1 cursor-pointer aspect-square"
         >
             <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="p-8 relative z-10">
@@ -73,7 +74,7 @@ const TechSection = () => {
 
     return (
         <>
-            <SectionWrapper title="Tech Skills" subtitle="System Enhancement & Arsenal">
+            <SectionWrapper title="Tech Skills" subtitle="System Enhancement & Arsenal" color={ALIENS.TECH_SKILLS.color}>
                 <div className="space-y-12 pt-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <TechCard
@@ -97,7 +98,7 @@ const TechSection = () => {
                         <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
                             <Cpu style={{ color: modeColor }} /> System Deployments
                         </h3>
-                        <div className="grid md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {projects.map((p, i) => <ProjectCard key={i} project={p} onClick={() => setSelectedProject(p)} />)}
                         </div>
                     </div>

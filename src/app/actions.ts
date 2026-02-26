@@ -2,6 +2,8 @@
 
 import axios from 'axios';
 import { z } from 'zod';
+import { db } from '@/lib/firebase';
+import { collection, addDoc } from "firebase/firestore";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -27,12 +29,26 @@ export async function submitContactForm(values: z.infer<typeof formSchema>) {
     console.error("Form submission error:", error);
     // More robust error handling for network errors or Formspree issues
     if (axios.isAxiosError(error)) {
-        const serverError = error.response?.data?.error;
-        if (serverError) {
-            return { success: false, message: `Submission failed: ${serverError}` };
-        }
-        return { success: false, message: "A network error occurred. Please check your connection and try again."};
+      const serverError = error.response?.data?.error;
+      if (serverError) {
+        return { success: false, message: `Submission failed: ${serverError}` };
+      }
+      return { success: false, message: "A network error occurred. Please check your connection and try again." };
     }
     return { success: false, message: "An unexpected error occurred while sending the message." };
+  }
+}
+
+// Server action to save contact form data to Firebase
+export async function saveContactMessage(formData: { email: string; subject: string; message: string; }) {
+  try {
+    await addDoc(collection(db, "contacts"), {
+      ...formData,
+      timestamp: new Date(),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error("Error adding document: ", error);
+    return { success: false, error: "Failed to send message." };
   }
 }
