@@ -15,6 +15,8 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 type Message = { role: 'user' | 'assistant'; content: string };
 
@@ -146,7 +148,21 @@ export function ChatbotWidget() {
                       )}
                       style={{ textShadow: msg.role === 'assistant' ? '0 0 5px rgba(57,255,20,0.3)' : 'none' }}
                     >
-                      {msg.content}
+                      {msg.role === 'assistant' ? (
+                        <div className="prose prose-sm prose-invert max-w-none
+                          prose-p:leading-relaxed prose-p:mb-2 last:prose-p:mb-0
+                          prose-pre:bg-black/50 prose-pre:border prose-pre:border-primary/20 prose-pre:p-3 prose-pre:rounded-lg
+                          prose-code:text-amber-500 prose-code:bg-black/40 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                          prose-strong:text-primary prose-strong:font-bold
+                          prose-ul:list-disc prose-ul:pl-4 prose-ul:my-2
+                          prose-ol:list-decimal prose-ol:pl-4 prose-ol:my-2
+                          prose-li:my-1"
+                        >
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
+                        </div>
+                      ) : (
+                        msg.content
+                      )}
                     </div>
                     {msg.role === 'user' && (
                       <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded bg-white/10 border border-white/20 text-white">
