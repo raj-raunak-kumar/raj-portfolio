@@ -48,10 +48,17 @@ export function ChatbotWidget() {
     setError(null);
 
     try {
+      const pageContext = {
+        url: window.location.href,
+        title: document.title,
+        // Send a 3000 character excerpt of the current screen text so the AI knows what the user sees
+        content: document.body.innerText.substring(0, 3000)
+      };
+
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: nextMessages }),
+        body: JSON.stringify({ messages: nextMessages, context: pageContext }),
       });
 
       if (!response.ok) {

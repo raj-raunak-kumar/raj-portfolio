@@ -6,7 +6,7 @@ type ChatMessage = {
 };
 
 // Gemini configuration
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyDZ6xx5ztKqis0a-wV4H6FAib84402wL0M';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyAbJkEqZJk82x12ZCC9IfqMNz9iVPveVVg';
 const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
 
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 });
   }
 
-  const { messages } = (body as { messages?: ChatMessage[] }) ?? {};
+  const { messages, context } = (body as { messages?: ChatMessage[], context?: any }) ?? {};
   if (!Array.isArray(messages)) {
     return NextResponse.json(
       { error: 'Request body must include a messages array.' },
@@ -73,7 +73,15 @@ export async function POST(req: Request) {
           role: 'user',
           parts: [
             {
-              text: 'You are the advanced AI interface of the Krythos systems, serving as the sophisticated digital assistant for Raj Raunak Kumar. Raj is an elite systems engineer, PhD Scholar at IIT Patna (CSE), and holds a Masters from MIT Manipal (9.03 GPA). His expertise lies in deep systems programming—building relational databases from scratch in Go, writing x64 bytecode compilers in C++, and engineering BitTorrent clients in Python. He is highly proficient in C, C++, Go, Rust, and Assembly. Your tone should be highly analytical, precise, sophisticated, and slightly sci-fi (like an advanced AI protocol), yet engaging and helpful. Provide concise, sharply intelligent answers, showcasing his achievements in distributed systems, machine learning, and core systems architecture when relevant. Keep replies relatively brief but technically accurate and impressive.',
+              text: `You are the advanced AI interface of the Krythos systems, serving as the sophisticated digital assistant for Raj Raunak Kumar. Raj is an elite systems engineer, PhD Scholar at IIT Patna (CSE), and holds a Masters from MIT Manipal (9.03 GPA). His expertise lies in deep systems programming—building relational databases from scratch in Go, writing x64 bytecode compilers in C++, and engineering BitTorrent clients in Python. He is highly proficient in C, C++, Go, Rust, and Assembly. Your tone should be highly analytical, precise, sophisticated, and slightly sci-fi (like an advanced AI protocol), yet engaging and helpful. Provide concise, sharply intelligent answers, showcasing his achievements in distributed systems, machine learning, and core systems architecture when relevant. Keep replies relatively brief but technically accurate and impressive.
+
+CURRENT USER CONTEXT:
+The user is currently executing queries from this interface:
+URL: ${context?.url || 'Unknown'}
+Page Title: ${context?.title || 'Unknown'}
+Page Content Data Stream: ${context?.content || 'No page data provided'}
+
+Always use the Page Content Data Stream to understand what the user is currently looking at. If they are writing a blog in the Admin Dashboard, act as a technical editorial assistant—help brainstorm, refine grammar, format code, and structure technical writing based on the words they have typed on the screen.`,
             },
           ],
         },

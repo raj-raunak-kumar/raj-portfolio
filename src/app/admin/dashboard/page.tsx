@@ -11,6 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Edit2, Trash2, LogOut, Check, X, ShieldAlert } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import { ChatbotWidget } from '@/components/chatbot-widget';
 import 'react-quill/dist/quill.snow.css';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -299,6 +300,9 @@ export default function AdminDashboard() {
                     </div>
                 </div>
             </div>
+
+            {/* Global AI Assistant for Admin Authoring Context */}
+            <ChatbotWidget />
         </div>
     );
 }

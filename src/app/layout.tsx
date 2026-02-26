@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/components/auth-provider";
 
 export const metadata: Metadata = {
-  title: 'Raj Raunak - The Evolving Hero',
+  title: 'Raj Raunak Kumar',
   description: 'The Evolving Hero Portfolio',
 };
 

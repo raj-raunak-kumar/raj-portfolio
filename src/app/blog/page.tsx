@@ -5,12 +5,14 @@ import Link from 'next/link';
 import { db } from '@/lib/firebase';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { BlogPost } from '@/lib/types';
-import { Calendar, ChevronRight, FileText, ArrowLeft } from 'lucide-react';
+import { Calendar, ChevronRight, FileText, ArrowLeft, Search } from 'lucide-react';
+import { ChatbotWidget } from '@/components/chatbot-widget';
 
 export default function BlogIndexPage() {
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -40,6 +42,30 @@ export default function BlogIndexPage() {
         fetchPosts();
     }, []);
 
+    const filteredPosts = posts.filter(post => {
+        if (!searchQuery.trim()) return true;
+
+        // Split query by spaces to create an array of keywords
+        const queryTerms = searchQuery.toLowerCase().split(/\s+/).filter(term => term.length > 0);
+
+        let dateStr = "";
+        try {
+            dateStr = new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).toLowerCase();
+        } catch (e) { }
+
+        // Combine all searchable text into a single string for deep searching
+        const searchableText = [
+            post.title,
+            post.tags,
+            post.excerpt,
+            post.content, // Include full post content for deep searching
+            dateStr
+        ].join(" ").toLowerCase();
+
+        // Google-style search: EVERY keyword must exist somewhere in the searchable text
+        return queryTerms.every(term => searchableText.includes(term));
+    });
+
     return (
         <div className="min-h-screen bg-black pt-32 pb-20 relative px-4">
             {/* Background Elements */}
@@ -59,6 +85,19 @@ export default function BlogIndexPage() {
                     </p>
                 </header>
 
+                <div className="mb-12 relative max-w-2xl mx-auto">
+                    <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <Search className="h-5 w-5 text-[#39ff14]/50" />
+                    </div>
+                    <input
+                        type="text"
+                        placeholder="SEARCH ARCHIVES BY TITLE, TAGS, OR DATE..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full bg-black/60 backdrop-blur border border-[#39ff14]/30 text-white placeholder-gray-500 rounded-xl py-4 pl-14 pr-6 focus:outline-none focus:border-[#39ff14] focus:ring-1 focus:ring-[#39ff14] transition-all font-mono text-sm tracking-widest uppercase shadow-[0_0_15px_rgba(57,255,20,0.05)]"
+                    />
+                </div>
+
                 {loading ? (
                     <div className="flex items-center justify-center p-20 text-[#39ff14] font-mono">
                         <div className="animate-spin w-8 h-8 flex border-2 border-t-[#39ff14] border-black rounded-full mr-3" />
@@ -73,15 +112,15 @@ export default function BlogIndexPage() {
                             Access Denied or Connection Timeout. Please verify Firebase Firestore Rules and Indices.
                         </p>
                     </div>
-                ) : posts.length === 0 ? (
+                ) : filteredPosts.length === 0 ? (
                     <div className="text-center p-20 border border-dashed border-[#39ff14]/30 rounded-2xl bg-black/50 backdrop-blur">
                         <p className="font-mono text-gray-500 uppercase tracking-widest">
-                            [ NO RECORDS FOUND IN ARCHIVE ]
+                            [ NO MATCHING RECORDS FOUND ]
                         </p>
                     </div>
                 ) : (
                     <div className="grid gap-8">
-                        {posts.map((post) => (
+                        {filteredPosts.map((post) => (
                             <Link
                                 href={`/blog/${post.id}`}
                                 key={post.id}
@@ -116,6 +155,9 @@ export default function BlogIndexPage() {
                     </div>
                 )}
             </div>
+
+            {/* AI Assistant available for blog context */}
+            <ChatbotWidget />
         </div>
     );
 }
