@@ -7,7 +7,7 @@ const TimelineSection = () => {
 
     const timelineItems = [
         { year: '2025', title: 'PhD Aspirant', desc: 'Aiming for top-tier research in System-Level AI.', side: 'left' },
-        { year: '2024', title: 'UGC-NET JRF', desc: 'Qualified with 99.36 percentile.', side: 'right' },
+        { year: '2024', title: 'UGC-NET JRF', desc: 'Qualified with 99.79 percentile.', side: 'right' },
         { year: '2023-2025', title: "Masters in Computer Science at MIT Manipal-IMSc Chennai", desc: "Joint Program. Graduated with 9.03 GPA.", side: 'left' },
         { year: '2020-2023', title: 'B.Sc. (Hons) Computer Science', desc: 'Graduated from Deen Dayal Upadhyaya College as College Topper (9.28 GPA).', side: 'right' },
         { year: '2019', title: 'Class 12th', desc: 'Kendriya Vidyalaya, Zonal Topper (92.8%).', side: 'left' },
