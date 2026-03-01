@@ -17,6 +17,22 @@ export async function submitContactForm(values: z.infer<typeof formSchema>) {
       timestamp: new Date().toISOString(),
       isRead: false,
     });
+
+    // Also send an email notification via Formspree
+    try {
+      await fetch('https://formspree.io/f/xkgdkqrr', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(values),
+      });
+    } catch (emailError) {
+      console.error("Failed to forward email via Formspree:", emailError);
+      // Don't fail the main submission if just the email alert fails
+    }
+
     return { success: true, message: "Transmission successfully recorded in Krythos central." };
   } catch (error: any) {
     console.error("Form submission error:", error);
