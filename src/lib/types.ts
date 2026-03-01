@@ -7,3 +7,12 @@ export type BlogPost = {
     date: string;
     tags: string;
 };
+
+export type ContactMessage = {
+    id: string;
+    email: string;
+    subject: string;
+    message: string;
+    timestamp: string;
+    isRead: boolean;
+};

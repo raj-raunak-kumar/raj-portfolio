@@ -13,14 +13,15 @@ export const THEME = {
 export interface Alien {
     id: string;
     label: string;
+    subtitle?: string;
     color: string;
     icon: LucideIcon;
 }
 
 export const ALIENS: { [key: string]: Alien } = {
-    HUMAN: { id: 'HUMAN', label: 'HOME', color: '#ffffff', icon: HeartPulse },
-    ACADEMICS: { id: 'ACADEMICS', label: 'ACADEMICS', color: '#ffaa00', icon: Brain },
-    TECH_SKILLS: { id: 'TECH_SKILLS', label: 'TECH SKILLS', color: '#39ff14', icon: Cpu },
-    TIMELINE: { id: 'TIMELINE', label: 'TIMELINE', color: '#00ccff', icon: Zap },
-    CONTACT: { id: 'CONTACT', label: 'CONTACT', color: '#ff3300', icon: Mail }
+    HUMAN: { id: 'HUMAN', label: 'HOME', subtitle: 'Base Reality', color: '#ffffff', icon: HeartPulse },
+    ACADEMICS: { id: 'ACADEMICS', label: 'ACADEMICS', subtitle: 'Intellect & Analysis Protocol', color: '#ffaa00', icon: Brain },
+    TECH_SKILLS: { id: 'TECH_SKILLS', label: 'TECH SKILLS', subtitle: 'System Enhancement & Arsenal', color: '#39ff14', icon: Cpu },
+    TIMELINE: { id: 'TIMELINE', label: 'TIMELINE', subtitle: 'Velocity & Timeline', color: '#00ccff', icon: Zap },
+    CONTACT: { id: 'CONTACT', label: 'CONTACT', subtitle: 'Direct Line Communication', color: '#ff3300', icon: Mail }
 };

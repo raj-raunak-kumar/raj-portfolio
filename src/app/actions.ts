@@ -1,6 +1,5 @@
 'use server';
 
-import axios from 'axios';
 import { z } from 'zod';
 import { db } from '@/lib/firebase';
 import { collection, addDoc } from "firebase/firestore";
@@ -13,42 +12,14 @@ const formSchema = z.object({
 
 export async function submitContactForm(values: z.infer<typeof formSchema>) {
   try {
-    const response = await axios.post('https://formspree.io/f/xkgdkqrr', values, {
-      headers: {
-        'Accept': 'application/json'
-      }
+    await addDoc(collection(db, "messages"), {
+      ...values,
+      timestamp: new Date().toISOString(),
+      isRead: false,
     });
-
-    if (response.status === 200) {
-      return { success: true, message: "Message sent successfully!" };
-    } else {
-      // Handle non-200 success responses if any
-      return { success: false, message: `Received status ${response.status}. Please try again.` };
-    }
+    return { success: true, message: "Transmission successfully recorded in Krythos central." };
   } catch (error: any) {
     console.error("Form submission error:", error);
-    // More robust error handling for network errors or Formspree issues
-    if (axios.isAxiosError(error)) {
-      const serverError = error.response?.data?.error;
-      if (serverError) {
-        return { success: false, message: `Submission failed: ${serverError}` };
-      }
-      return { success: false, message: "A network error occurred. Please check your connection and try again." };
-    }
-    return { success: false, message: "An unexpected error occurred while sending the message." };
-  }
-}
-
-// Server action to save contact form data to Firebase
-export async function saveContactMessage(formData: { email: string; subject: string; message: string; }) {
-  try {
-    await addDoc(collection(db, "contacts"), {
-      ...formData,
-      timestamp: new Date(),
-    });
-    return { success: true };
-  } catch (error) {
-    console.error("Error adding document: ", error);
-    return { success: false, error: "Failed to send message." };
+    return { success: false, message: "A network anomaly occurred. Failed to sync transmission." };
   }
 }
